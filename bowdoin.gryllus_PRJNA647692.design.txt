@@ -1,0 +1,13 @@
+	sample	collection_date	dev_stage	replicate	sex
+0	SRR12326205	2020-01	Adult	biological_replicate_1	female
+1	SRR12326206	2020-01	Adult	biological_replicate_3	male
+2	SRR12326207	2020-01	Adult	biological_replicate_2	male
+3	SRR12326208	2020-01	Adult	biological_replicate_1	male
+4	SRR12326209	2020-01	Adult	biological_replicate_3	female
+5	SRR12326210	2020-01	Adult	biological_replicate_2	female
+6	SRR12326212	2020-01	Adult	biological_replicate_3	male
+7	SRR12326213	2020-01	Adult	biological_replicate_3	female
+8	SRR12326214	2020-01	Adult	biological_replicate_2	female
+9	SRR12326215	2020-01	Adult	biological_replicate_2	male
+10	SRR12326216	2020-01	Adult	biological_replicate_1	male
+11	SRR12326211	2020-01	Adult	biological_replicate_1	female

@@ -15,21 +15,13 @@ def designFileGen():
     args = parser.parse_args()
 
     df = pd.read_csv(args.csvfile, sep=",")
-    df.drop(['Assay Type', 'Bases', 'AvgSpotLen', 'Bytes', 'BioProject', 'BioSample', 
-            'Center Name', 'Consent', 'DATASTORE filetype', 'DATASTORE provider', 
-            'DATASTORE region', 'SRA Study', 'Platform', 'ReleaseDate', 'LibraryLayout', 
-            'GEO_Accession (exp)', 'LibrarySelection', 'LibrarySource', 'Instrument', 'Organism'], 
-            inplace=True, axis=1)
-
+    #df.drop(columns=df.columns[0],axis=1, inplace=True)
     df.columns = df.columns.str.replace(' ','_')
     df.columns = map(str.lower, df.columns)
+    df = df.rename(columns={'run': 'sample'})
     df = df.rename(columns={'time': 'time_dpa'})
-    #df = df.drop(df.index[:1])
     df2 = df.replace(r' ','_', regex=True)
-    #df2 = df2.replace(r'_days_post_amputation_(dpa)', '', regex=True)
-    #df2 = df2.assign(time_dpa=df['time_dpa'].str.replace(r'_days_post_amputation_(dpa)', '', regex=False))
-    df2.to_csv('axolotl_smcc-design.txt', sep='\t', encoding='utf-8')
-    
+    df2.to_csv('bowdoin.gryllus_PRJNA647692.design.txt', sep='\t', encoding='utf-8')
 #TODO: Build in editing of filename output
 
 if __name__ == '__main__':
