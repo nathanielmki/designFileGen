@@ -5,8 +5,6 @@ import os
 import csv
 import re
 import string
-import numpy as np
-import openpyxl
 
 # This program takes an unfiltered metadata file downloaded from NCBI as input, and converts it to a usable design file
 
