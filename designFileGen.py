@@ -7,9 +7,9 @@ import string
 import numpy as np
 import openpyxl
 
-# Primarily meant to convert SRA metadata records into a workable design file
+# This program takes an unfiltered metadata file downloaded from NCBI, and converts it to a usable design file
 
-def designFileGen():
+def fileThreshold():
     parser = argparse.ArgumentParser(description='Load file for modification.')
     parser.add_argument('csvfile', type=argparse.FileType('r'), help='input file')
     args = parser.parse_args()
@@ -22,7 +22,36 @@ def designFileGen():
     df = df.rename(columns={'time': 'time_dpa'})
     df2 = df.replace(r' ','_', regex=True)
     df2.to_csv('bowdoin.gryllus_PRJNA647692.design.txt', sep='\t', encoding='utf-8')
-#TODO: Build in editing of filename output
+
+def inputVerif(parsed_args):
+    infile = parsed_args.infile
+
+    # Check if input file exists, throw warning if it does not.
+    if not os.path.isfile(parsed_args.infile):
+        print("The input file %s does not exit, quitting." % parsed_args.infile)
+        sys.exit()
+    
+    # Auto-generate an output file name based upon checked input
+    if parsed_args.outfile == '':
+        outfile = infile.split('.')[-2] + '.design.txt'
+    else:
+        outfile = parsed_args.outfile
+    
+    return infile, outfile
+
+def main():
+    # Definitions for input and output files
+    parser = argparse.ArgumentParser(description='Load SRA metadata table for conversion.')
+
+    parser.add_argument("-i", "--infile", required=True, dest="infile",
+                help="Input SRARunTable, downloaded from NCBI")
+    
+    parser.add_argument("-o", "--outfile", required=True, dest="outfile",
+                help="Store converted output of program, should end in '.design.txt'.")
+
+    infile, outfile = inputVerif(parser.parse_args())
+
+    conversion(infile, outfile)
 
 if __name__ == '__main__':
-    designFileGen()
+    main()
