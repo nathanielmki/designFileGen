@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import argparse
 import sys
 import os
@@ -16,12 +17,17 @@ def pandasConversion(infile, outfile, delim=','):
     #parser.add_argument('csvfile', type=argparse.FileType('r'), help='input file')
     #args = parser.parse_args()
     df = pd.read_csv(infile, sep=",")
+    if 'Replicate' not in df:
+        df['Replicate'] = 'R'
+    if 'Time' not in df:
+        df['Time'] = np.nan
     df.columns = df.columns.str.replace(' ', '_')
     df.columns = map(str.lower, df.columns)
     df = df.rename(columns={'run': 'sample'})
     df = df.rename(columns={'time': 'time_dpa'})
     df2 = df.replace(r' ', '_', regex=True)
-    df2.to_csv(outfile, sep='\t', encoding='utf-8')
+    df_final=df2[['sample', 'replicate', 'time_dpa', 'dev_stage']]
+    df_final.to_csv(outfile, sep='\t', encoding='utf-8')
 
 
 def inputVerification(parsed_args):
@@ -47,7 +53,7 @@ def main():
         description='Load SRA metadata table for conversion.')
 
     parser.add_argument("-i", "--infile", required=True, dest="infile",
-                        help="Input SRARunTable, downloaded from NCBI SRA Run Selector")
+                        help="Input SraRunTable, downloaded from NCBI SRA Run Selector")
 
     parser.add_argument("-o", "--outfile", required=True, dest="outfile",
                         help="Output filename, should end in '.design.txt'.")
