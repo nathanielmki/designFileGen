@@ -10,12 +10,12 @@ import openpyxl
 # This program takes an unfiltered metadata file downloaded from NCBI as input, and converts it to a usable design file
 
 def pandasConversion(infile, outfile, delim = ','):
+    # Use pandas to convert CSV file from NCBI to reduced and formatted TSV file
+
     #parser = argparse.ArgumentParser(description='Load file for modification.')
     #parser.add_argument('csvfile', type=argparse.FileType('r'), help='input file')
     #args = parser.parse_args()
-
     df = pd.read_csv(infile, sep=",")
-    #df.drop(columns=df.columns[0],axis=1, inplace=True)
     df.columns = df.columns.str.replace(' ','_')
     df.columns = map(str.lower, df.columns)
     df = df.rename(columns={'run': 'sample'})
@@ -24,9 +24,8 @@ def pandasConversion(infile, outfile, delim = ','):
     df2.to_csv(outfile, sep='\t', encoding='utf-8')
 
 def inputVerification(parsed_args):
-    infile = parsed_args.infile
-
     # Check if input file exists, throw warning if it does not.
+    infile = parsed_args.infile
     if not os.path.isfile(parsed_args.infile):
         print("The input file %s does not exit, quitting." % parsed_args.infile)
         sys.exit()
