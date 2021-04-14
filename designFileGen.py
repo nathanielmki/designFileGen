@@ -44,10 +44,10 @@ def main():
     parser = argparse.ArgumentParser(description='Load SRA metadata table for conversion.')
 
     parser.add_argument("-i", "--infile", required=True, dest="infile",
-                help="Input SRARunTable, downloaded from NCBI")
+                help="Input SRARunTable, downloaded from NCBI SRA Run Selector")
     
     parser.add_argument("-o", "--outfile", required=True, dest="outfile",
-                help="Store converted output of program, should end in '.design.txt'.")
+                help="Output filename, should end in '.design.txt'.")
 
     infile, outfile = inputVerification(parser.parse_args())
 
