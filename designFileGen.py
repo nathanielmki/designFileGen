@@ -7,23 +7,23 @@ import string
 import numpy as np
 import openpyxl
 
-# This program takes an unfiltered metadata file downloaded from NCBI, and converts it to a usable design file
+# This program takes an unfiltered metadata file downloaded from NCBI as input, and converts it to a usable design file
 
-def fileThreshold():
-    parser = argparse.ArgumentParser(description='Load file for modification.')
-    parser.add_argument('csvfile', type=argparse.FileType('r'), help='input file')
-    args = parser.parse_args()
+def pandasConversion(infile, outfile, delim = ','):
+    #parser = argparse.ArgumentParser(description='Load file for modification.')
+    #parser.add_argument('csvfile', type=argparse.FileType('r'), help='input file')
+    #args = parser.parse_args()
 
-    df = pd.read_csv(args.csvfile, sep=",")
+    df = pd.read_csv(infile, sep=",")
     #df.drop(columns=df.columns[0],axis=1, inplace=True)
     df.columns = df.columns.str.replace(' ','_')
     df.columns = map(str.lower, df.columns)
     df = df.rename(columns={'run': 'sample'})
     df = df.rename(columns={'time': 'time_dpa'})
     df2 = df.replace(r' ','_', regex=True)
-    df2.to_csv('bowdoin.gryllus_PRJNA647692.design.txt', sep='\t', encoding='utf-8')
+    df2.to_csv(outfile, sep='\t', encoding='utf-8')
 
-def inputVerif(parsed_args):
+def inputVerification(parsed_args):
     infile = parsed_args.infile
 
     # Check if input file exists, throw warning if it does not.
@@ -49,9 +49,9 @@ def main():
     parser.add_argument("-o", "--outfile", required=True, dest="outfile",
                 help="Store converted output of program, should end in '.design.txt'.")
 
-    infile, outfile = inputVerif(parser.parse_args())
+    infile, outfile = inputVerification(parser.parse_args())
 
-    conversion(infile, outfile)
+    pandasConversion(infile, outfile)
 
 if __name__ == '__main__':
     main()
