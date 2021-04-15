@@ -31,7 +31,7 @@ def pandasConversion(infile, outfile, delim=','):
 
 
 def inputVerification(parsed_args):
-    # Check if input file exists, throw warning if it does not.
+    # Check if input file exists, throw warning if it does not
     infile = parsed_args.infile
     if not os.path.isfile(parsed_args.infile):
         print("The input file %s does not exit, quitting." %
@@ -55,7 +55,7 @@ def main():
     parser.add_argument("-i", "--infile", required=True, dest="infile",
                         help="Input SraRunTable, downloaded from NCBI SRA Run Selector")
 
-    parser.add_argument("-o", "--outfile", required=True, dest="outfile",
+    parser.add_argument("-o", "--outfile", dest="outfile",
                         help="Output filename, should end in '.design.txt'.")
 
     infile, outfile = inputVerification(parser.parse_args())
