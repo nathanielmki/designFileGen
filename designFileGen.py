@@ -9,7 +9,6 @@ import string
 
 # This program takes an unfiltered metadata file downloaded from NCBI as input, and converts it to a usable design file
 
-
 def pandasConversion(infile, outfile, delim=','):
     # Use pandas to convert CSV file from NCBI to reduced and formatted TSV file
 
@@ -34,7 +33,7 @@ def inputVerification(parsed_args):
     # Check if input file exists, throw warning if it does not
     infile = parsed_args.infile
     if not os.path.isfile(parsed_args.infile):
-        print("The input file %s does not exit, quitting." %
+        print("The input file %s does not exist, quitting." %
               parsed_args.infile)
         sys.exit()
 
