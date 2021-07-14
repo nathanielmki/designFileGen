@@ -15,7 +15,7 @@ def pandasConversion(infile, outfile, delim=','):
     #parser = argparse.ArgumentParser(description='Load file for modification.')
     #parser.add_argument('csvfile', type=argparse.FileType('r'), help='input file')
     #args = parser.parse_args()
-    df = pd.read_csv(infile, sep=",")
+    df = pd.read_csv(infile, sep=',')
     if 'Replicate' not in df:
         df['Replicate'] = 'R'
     if 'Time' not in df:
@@ -49,7 +49,7 @@ def inputVerification(parsed_args):
 def main():
     # Definitions for input and output files
     parser = argparse.ArgumentParser(
-        description='Load SRA metadata table for conversion.')
+        description="Load SRA metadata table for conversion.")
 
     parser.add_argument("-i", "--infile", required=True, dest="infile",
                         help="Input SraRunTable, downloaded from NCBI SRA Run Selector")
